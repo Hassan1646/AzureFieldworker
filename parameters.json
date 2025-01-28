@@ -1,0 +1,21 @@
+    {
+      "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "keyVaultName": {
+          "value": "fw-dev-kv-1"
+        },
+        "clientId": {
+          "value": "AZURE-CLIENT-ID"
+        },
+        "clientSecret": {
+          "value": "AZURE-CLIENT-SECRET"
+        },
+        "tenantId": {
+          "value": "AZURE-TENANT-ID"
+        },
+        "subscriptionId": {
+          "value": "AZURE-SUBSCRIPTION-ID"
+        }
+      }
+    }   
