@@ -10,22 +10,22 @@ trigger:
 
 # use our Agentpool
 pool:
-  name: 'AgentPool_MDP_Dev'
+  name: 'AgentPool_***_Dev'
 
 # variables to pass on
 variables:
-  azureSubscription: 'FieldWorkerResourceDeploymentConnection'
+  azureSubscription: '*************'
   appName: 'fwapplicationsservice'
 steps:
 
 - task: NuGetCommand@2
   inputs:
     command: 'restore'
-    restoreSolution: 'BCC.FW.ADMIN.APP-develop_test_release_1.47/BCC.FW.ADMIN.APP/BCC.FW.ADMIN.APP.sln'
+    restoreSolution: '*******************/*********/***************.APP.sln'
  #Build the FieldWorker project
 - task: VSBuild@1
   inputs:
-    solution: 'BCC.FW.ADMIN.APP-develop_test_release_1.47/BCC.FW.ADMIN.APP/BCC.FW.ADMIN.APP.sln'
+    solution: '****************/****************/*************8APP.sln'
     msbuildVersion: '17.0' 
     msbuildArchitecture: 'x64'
     msbuildArgs: '/p:Configuration=Release'
@@ -37,11 +37,10 @@ steps:
     searchFolder: '$(System.DefaultWorkingDirectory)'
     vsTestVersion: 'latest'
     
-#- script: dotnet test $(System.DefaultWorkingDirectory)/BCC.FW.ADMIN.APP-develop_test_release_1.47/BCC.FW.ADMIN.APP.UNIT.TEST/BCC.FW.ADMIN.APP.UNIT.TEST.csproj
- # displayName: 'Run unit tests'
+
 
 - script: |
-    dotnet publish "BCC.FW.ADMIN.APP-develop_test_release_1.47/BCC.FW.ADMIN.APP/BCC.FW.ADMIN.APP.sln" --configuration Release --output $(Build.ArtifactStagingDirectory)
+    dotnet publish "************************/****************/************APP.sln" --configuration Release --output $(Build.ArtifactStagingDirectory)
   displayName: 'Publish Project'
 
 - task: PublishBuildArtifacts@1
@@ -56,7 +55,7 @@ steps:
     azureSubscription: '$(azureSubscription)'
     scriptType: 'powershell'
     scriptLocation: 'inlineScript'
-    cwd: '$(System.DefaultWorkingDirectory)/BCC.FW.ADMIN.APP-develop_test_release_1.47/BCC.FW.ADMIN.APP.INFRASTRUCTURE'
+    cwd: '$(System.DefaultWorkingDirectory)/***************/**************INFRASTRUCTURE'
     inlineScript: |
       az deployment group create --resource-group fw-dev-rg --template-file main.bicep --parameters @parameters.json
 
@@ -65,4 +64,5 @@ steps:
     azureSubscription: '$(azureSubscription)'
     appType: 'webApp'
     appName: '$(appName)'
+
     package: '$(Build.ArtifactStagingDirectory)'
